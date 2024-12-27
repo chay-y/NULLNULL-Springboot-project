@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<th:block layout:fragment="css">
+    <style>
+        @charset "utf-8";
+
+        *{margin: 0;padding: 0;}
+        body{
+            font-family: "Noto Sans KR", sans-serif;
+            font-size: 13px;
+            line-height: 20px;
+            color: rgb(20, 20, 20);
+            background-image:url('../img/background_img.png');
+            background-size: cover;
+          }
+        ul, ol{list-style: none;}
+        img{vertical-align: top; border: 0;}
+        a{text-decoration: none; color: rgb(20, 20, 20);}
+
+        .wrap{
+            width: 100%;
+            min-height: 1200px;
+            margin: 0 auto;
+        }
+
+        .filterWrap{
+            width: 1000px;
+            margin: 0 auto;
+            margin-top: 50px;
+        }
+
+
+        .filterMain{
+            width: 1000px;
+            margin-bottom: 20px;
+        }
+
+        .filterMain .filterTitle{
+            position: relative;
+            z-index: 1;
+            padding-left: 15px;
+            font-size: 25px;
+            text-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);;
+        }
+
+        .filterMain .TitleBackground{
+            position: relative;
+            background-image: linear-gradient(to right, rgb(255, 255, 255),rgb(255, 255, 255), rgb(255, 255, 255,0));
+            box-shadow : 0 3px 6px rgba(0,0,0,0.05), 0 3px 6px rgba(0,0,0,0);
+            border-radius: 10px;
+            width: 1000px;
+            height: 15px;
+            top: -8px;
+            z-index: 0;
+        }
+
+        .filter {
+            height: 250px;
+            border-radius: 10px;
+            margin-bottom: 50px;
+            display: flex;
+            justify-content: space-around;
+            border: 0;
+            background-color: rgb(255, 255, 255,0.8);
+            box-shadow : 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        }
+
+        .filterG1 input{
+            width: 350px;
+            height: 40px;
+            padding: 5px 10px;
+            margin: 10px;
+            border: 0.1px solid rgb(226, 226, 226);
+            border-radius: 10px;
+            background-color: rgb(255, 255, 255);
+            box-shadow : 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        }
+
+        input::placeholder {
+            color: rgb(161, 161, 161);
+            font-size: 15px;
+            line-height: 20px;
+            color: rgb(20, 20, 20);
+            text-align: center;
+            font-weight: bold;
+        }
+
+        input[type=date]{
+            color: rgb(161, 161, 161);
+            font-size: 15px;
+            line-height: 20px;
+            color: rgb(20, 20, 20);
+            text-align: center;
+            font-family: "Noto Sans KR", sans-serif;
+            font-weight: bold;
+        }
+
+        .filterG2 p{
+            font-weight: bold;
+            text-align: center;
+            font-size: 15px;
+            padding: 14.5px 40px;
+            margin: 10px;
+            margin-bottom: 20px;
+            border: 0.1px solid rgb(226, 226, 226);
+            border-radius: 10px;
+            background-color: rgb(255, 255, 255);
+            box-shadow : 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        }
+
+        .filterG2 div{
+            margin-bottom: 5px;
+        }
+
+        input[type='checkbox']{
+            display: none;
+          }
+
+        .checkbox_label{
+            display: inline-flex;
+            align-items: center;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .checkbox_icon{
+            content: "";
+            display: block;
+            display: inline-block;
+            text-align: center;
+            width: 25px;
+            height: 25px;
+            margin-right: 10px;
+            border-radius: 5px;
+            background: url(../img/체크표시_x.png);
+            background-size: 100%;
+            border: 0.1px solid rgb(226, 226, 226);
+            box-shadow : 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+            box-sizing:border-box;
+            position: relative;
+        }
+
+        .checkbox_label input:checked +
+        .checkbox_icon{
+            background: url(../img/체크표시_o.png);
+            background-size: 100%;
+            border: 2px solid rgb(142,32,149);
+        }
+
+        .checkbox_name{
+            margin-right: 10px;
+        }
+
+        input[type=button], input[type=submit]{
+            width: 100px;
+            padding: 14.5px 0;
+            font-weight: bold;
+            text-align: center;
+            font-size: 15px;
+            margin: 10px;
+            border: 0.1px solid rgb(226, 226, 226);
+            border-radius: 10px;
+            background-color: rgb(255, 255, 255);
+            box-shadow : 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        }
+
+        input[type=button]:hover ,input[type=submit]:hover{
+            background-color: rgb(245, 194, 255);
+            transition: 0.6s;
+            color: rgb(142,32,149);
+            border: 0.1px solid rgb(245, 194, 255);
+        }
+
+        input[type=button]:active, input[type=submit]:active{
+            background-color: rgb(215, 167, 224);
+            transition: 0.3s;
+        }
+
+        .gatherBody{
+            width: 1000px;
+            align-items: center;
+            margin: 0 auto;
+        }
+
+        .filterMain p{
+            margin-left: 20px;
+            font-weight: bold;
+        }
+        .filterMain p span{
+            font-size: 23px;
+            color: rgb(142,32,149);
+        }
+
+        .gatherBody ul {
+            display: flex;
+            justify-content: space-around;
+
+        }
+
+        .gatherBody ul li {
+            width: 500px;
+            height: 200px;
+            border: 0;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow : 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        }
+
+        .gatherMain{
+            position:relative;
+            padding: 20px 30px;
+            border-radius: 10px 10px 0px 0px;
+            overflow: hidden;
+        }
+
+        .gatherMain h1{
+            margin-bottom: 50px;
+        }
+
+        .gatherMain p img{
+            position: absolute;
+            top: 0;
+            left: 0;
+            object-fit: cover;
+            mix-blend-mode: overlay;
+        }
+
+
+        .gatherMain p span{
+            display: flex;
+        }
+
+        .gatherDetail{
+            background-color: white;
+            overflow: hidden;
+            border-radius: 0px 0px 10px 10px;
+            padding: 5px 15px;
+        }
+        .gatherDetail p{
+            display: flex;
+            justify-content: space-between;
+        }
+
+    </style>
+</th:block>
+
+<script>
+    // 삭제 요청을 보내는 함수
+  function deleteGather(gatherId) {
+      if (confirm("정말 삭제하시겠습니까?")) {  // 삭제 확인 창
+          fetch(`/gather/${gatherId}`, {
+              method: 'DELETE',  // DELETE 요청을 보냄
+              headers: {
+                  'Content-Type': 'application/json', // JSON 형식
+              }
+          })
+          .then(response => {
+              if (response.ok) {
+                  alert('삭제가 완료되었습니다.');
+
+                  // 삭제 후 gatherList 페이지로 리다이렉트
+                  window.location.href = "gather/gatherList";  // gatherList 페이지로 이동
+              } else {
+                  alert('삭제 실패: ' + response.statusText);
+              }
+          })
+          .catch(error => {
+              alert('서버 오류: ' + error.message);
+          });
+      }
+  }
+</script>
+
+<div layout:fragment="content">
+
+    <div class="wrap">
+        <div class="detail">
+            <table class="gatherDetailTable">
+                <div class="detailImg">
+                    <img src="" alt="">이미지
+                </div>
+
+                <div class="detailMain">
+                    <thead>
+                        <td class="detailTitle"> 제목 </td>
+                        <td>등록일</td>
+                        <td> 조회수</td>
+                        <td> 등록자</td>
+                        <td> 내용</td>
+                        <td> 동행인원수</td>
+                        <td> 선호 성별</td>
+                        <td> 선호 연령</td>
+                        <td> 예정일 </td>
+                    </thead>
+
+                    <tr th:each="gather: ${gather}">
+                        <td class="detailTitle1" th:text="${gather.gtTitle}">제목</td>
+                        <td th:text="${gather.gtRgDate}"></td>
+                        <td th:text="${gather.gtCount}"></td>
+                        <td th:text="${gather.userId}"></td>
+                        <td th:text="${gather.gtText}"></td>
+                        <td th:text="${gather.ppNum}"></td>
+                        <td th:text="${gather.preferGender}"></td>
+                        <td th:text="${gather.preferAge}"></td>
+                        <td th:text="${gather.gtMtDate}"></td>
+                    </tr>
+                </div>
+
+                <!-- 수정 버튼 -->
+                <form th:action="@{/gather/{gatherId}/form(gatherId=${gatherId})}" method="get">
+                    <div class="update">
+                        <input type="submit" value="수정">
+                    </div>
+                </form>
+                <form th:action="@{/gather/{gatherId}(gatherId=${gatherId})}" method="post" onsubmit="event.preventDefault(); deleteGather(${gatherId});">
+                    <div class="delete">
+                        <input type="submit" value="삭제">
+                    </div>
+                </form>
+
+            </table>
+        </div>
+    </div>
+</div>
+</html>

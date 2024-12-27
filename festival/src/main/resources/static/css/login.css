@@ -1,0 +1,64 @@
+@charset "utf-8";
+
+*{margin: 0;padding: 0;}
+body {
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+    color: rgb(20, 20, 20);
+    background-image:url('../img/background_img.png');
+    background-size: cover;
+  }
+ul, ol{list-style: none;}
+img{vertical-align: top; border: 0;}
+a{text-decoration: none; color: rgb(20, 20, 20);}
+
+.login_wrap{
+    position: relative;
+    width: 500px;
+    height: 300px;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 250px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    box-shadow : 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+
+.login_wrap .login_page{
+    position: absolute;
+    top: 42px;
+    left: 134.5px;
+}
+
+.login_wrap input{
+    border: 0;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    padding: 15px;
+    width: 200px;
+    font-size: 14px;
+    border-radius: 10px;
+    box-shadow : 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.loginBtn{
+    font-size: 14px;
+    border: 0;
+    margin-bottom: 20px;
+    padding: 10px 30px;
+    border-radius: 10px;
+    box-shadow : 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    background-color: white;
+}
+
+.loginBtn:hover{
+    background-color: rgb(245, 194, 255);
+    transition: 0.6s;
+    color: rgb(142,32,149);
+}
+.clickBtn{
+    font-style: italic;
+    color: rgb(142,32,149);
+}

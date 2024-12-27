@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<th:block layout:fragment="css">
+    <style>
+        @charset "utf-8";
+
+        *{margin: 0;padding: 0;}
+        body {
+            font-family: "Noto Sans KR", sans-serif;
+            font-size: 13px;
+            line-height: 20px;
+            color: rgb(20, 20, 20);
+            background-image: linear-gradient(to left,rgba(199, 187, 255, 0.5),  rgba(255, 193, 203, 0.8), rgba(255, 193, 203, 0.8)40%, rgb(205, 227, 255, 0.4) 70%, rgb(205, 227, 255, 0.8) 100%);
+            background-size: cover;
+          }
+        ul, ol{list-style: none;}
+        img{vertical-align: top; border: 0;}
+        a{text-decoration: none; color: rgb(20, 20, 20);}
+
+        .login_wrap{
+            position: relative;
+            width: 500px;
+            height: 350px;
+            text-align: center;
+            margin: 0 auto;
+            margin-top: 100px;
+            background-color: rgb(255, 255, 255);
+            border-radius: 10px;
+            box-shadow : 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        }
+
+
+        .login_wrap .login_page{
+            position: absolute;
+            top: 42px;
+            left: 134.5px;
+        }
+
+        .login_wrap input{
+            border: 0;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            padding: 15px;
+            width: 200px;
+            font-size: 14px;
+            border-radius: 10px;
+            box-shadow : 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        }
+
+        .loginBtn{
+            font-size: 14px;
+            border: 0;
+            margin-bottom: 20px;
+            padding: 10px 30px;
+            border-radius: 10px;
+            box-shadow : 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+            background-color: white;
+        }
+
+        .loginBtn:hover{
+            background-color: rgb(245, 194, 255);
+            transition: 0.6s;
+            color: rgb(142,32,149);
+        }
+        .clickBtn{
+            font-style: italic;
+            color: rgb(142,32,149);
+        }
+    </style>
+</th:block>
+
+<div layout:fragment="content">
+    <form class="login_wrap" action="/users/login" method="post">
+        <div class="login_page">
+            <h2> 로그인 </h2> <br>
+            <label th:for="userId"></label>
+            <input class="userId" type="text" name="userId" id="userId" placeholder="아이디"> <br>
+
+            <label th:for="password"></label>
+            <input class="password" type="text" name="password" id="password" placeholder="비밀번호"> <br>
+            <p th:if="${loginErrorMsg}" class="error" th:text="${loginErrorMsg}"></p>
+            <button class="loginBtn" type="submit">로그인</button>
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <div>
+                <a href="#">비밀번호를 잊어버리셨나요? <span class="clickBtn">Click</span></a>
+            </div>
+        </div>
+    </form>
+</div>
+</html>

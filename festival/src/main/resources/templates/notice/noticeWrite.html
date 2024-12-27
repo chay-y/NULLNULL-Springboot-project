@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<th:block layout:fragment="css">
+  <style>
+    @charset "utf-8";
+
+    *{margin: 0;padding: 0;}
+    body {
+        font-family: "Noto Sans KR", sans-serif;
+        font-size: 13px;
+        line-height: 20px;
+        color: rgb(20, 20, 20);
+        background-image: linear-gradient(to left,rgba(199, 187, 255, 0.5),  rgba(255, 193, 203, 0.8), rgba(255, 193, 203, 0.8)40%, rgb(205, 227, 255, 0.4) 70%, rgb(205, 227, 255, 0.8) 100%);
+        background-size: cover;
+      }
+    ul, ol{list-style: none;}
+    img{vertical-align: top; border: 0;}
+    a{text-decoration: none; color: rgb(20, 20, 20);}
+
+    .container {
+        position: relative;
+        width: 500px;
+        height: 640px;
+        text-align: center;
+        margin: 0 auto;
+        margin-top: 100px;
+        padding-top: 40px;
+        background-color: rgb(255, 255, 255);
+        border-radius: 10px;
+        box-shadow : 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    }
+
+    .email {
+        width: 150px;
+        height: 40px;
+        outline: none;
+        padding: 0 10px;
+        border: 0;
+        border-radius: 5px;
+        margin: 5px 0;
+        margin-right: 5px;
+        font-size: 14px;
+        border-radius: 10px;
+        box-shadow : 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    }
+
+    .test {
+        width: 200px;
+        height: 40px;
+        outline: none;
+        padding: 0 10px;
+        border: 0;
+        border-radius: 5px;
+        margin: 5px 0;
+        font-size: 14px;
+        border-radius: 10px;
+        box-shadow : 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    }
+
+    #userGender{
+        margin: 5px 10px;
+    }
+
+    select {
+        width: 150px;
+        height: 40px;
+        font-size: 15px;
+        border: 0;
+        outline: none;
+        padding: 0 10px;
+        margin-left: 5px;
+        border-radius: 10px;
+        box-shadow : 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    }
+
+    .btn{
+        font-size: 14px;
+        border: 0;
+        margin-bottom: 20px;
+        padding: 10px 30px;
+        border-radius: 10px;
+        box-shadow : 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        background-color: white;
+    }
+
+    .btn:hover{
+        background-color: rgb(245, 194, 255);
+        transition: 0.6s;
+        color: rgb(142,32,149);
+    }
+
+    button[type=submit]{
+        width: 100px;
+        padding: 11px 0;
+        font-weight: bold;
+        text-align: center;
+        font-size: 15px;
+        margin: 10px;
+        border: 0.1px solid rgb(226, 226, 226);
+        border-radius: 10px;
+        background-color: rgb(255, 255, 255);
+        box-shadow : 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    }
+
+    button[type=submit]:hover{
+        background-color: rgb(245, 194, 255);
+        transition: 0.6s;
+        color: rgb(142,32,149);
+        border: 0.1px solid rgb(245, 194, 255);
+    }
+
+    button[type=submit]:active{
+        background-color: rgb(215, 167, 224);
+        transition: 0.3s;
+    }
+  </style>
+</th:block>
+<th:block layout:fragment="script">
+  <script th:value="javascript">
+    $(document).ready(function() {
+
+        let errorMessage= /*[[${errorMessage}]]*/ "";
+        if (errorMessage != null) {
+            alert(errorMessage);
+        }
+    });
+  </script>
+</th:block>
+<div layout:fragment="content">
+  <div class="container">
+    <h1>글쓰기</h1> <br>
+
+    <form action="/notice/write" role="form" method="post" th:object="${noticeForm}">
+      <legend><label th:for="noTitle"><span>제목</span></label></legend>
+      <input type="text" th:field="*{noTitle}" class="test" id="noTitle">
+      <p th:if="${#fields.hasErrors('noTitle')}" th:errors="*{noTitle}" class="fieldError">Incorrect data</p> <br><br>
+
+      <legend><label th:for="regId"><span>작성자</span></label></legend>
+      <input type="text" th:value="${regId}" class="test" id="regId" readonly>
+      <input type="hidden" th:text="*{regId}" class="test" id="regId1" readonly>
+      <p th:if="${#fields.hasErrors('regId')}" th:errors="*{regId}" class="fieldError">Incorrect data</p> <br><br>
+
+      <legend><label th:for="noText"><span>내용</span></label></legend>
+      <input type="text" th:field="*{noText}" class="test" id="noText">
+      <p th:if="${#fields.hasErrors('noText')}" th:errors="*{noText}" class="fieldError">Incorrect data</p> <br><br>
+
+      <legend><label th:for="noFile"><span>파일</span></label></legend>
+      <input type="text" th:field="*{noFile}" class="test" id="noFile">
+      <p th:if="${#fields.hasErrors('noFile')}" th:errors="*{noFile}" class="fieldError">Incorrect data</p> <br><br>
+
+      <ul>
+        <button type="submit" class="btn">작성</button>
+      </ul>
+    </form>
+  </div>
+</div>
+</html>

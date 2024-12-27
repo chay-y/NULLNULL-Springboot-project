@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- mybatis의 설정파일 -->
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <typeAliases>
+        <typeAlias alias="userDto" type="com.teamproject.festival.user.dto.UserDto" />
+
+        <typeAlias alias="festivalMainDto" type="com.teamproject.festival.festival.dto.FestivalMainDto"></typeAlias>
+        <typeAlias alias="festivalListDto" type="com.teamproject.festival.festival.dto.FestivalListDto" />
+        <typeAlias alias="festivalDetailDto" type="com.teamproject.festival.festival.dto.FestivalDetailDto" />
+        <typeAlias alias="festivalReviewDto" type="com.teamproject.festival.festival.dto.FestivalReviewDto" />
+        <typeAlias alias="festivalSearchDto" type="com.teamproject.festival.festival.dto.FestivalSearchDto" />
+
+        <typeAlias alias="noticeDto" type="com.teamproject.festival.notice.dto.NoticeDto" />
+        <typeAlias alias="noticeMainDto" type="com.teamproject.festival.notice.dto.NoticeMainDto"></typeAlias>
+        <typeAlias alias="noticeInsertDto" type="com.teamproject.festival.notice.form.NoticeForm" />
+
+        <typeAlias alias="gatherDto" type="com.teamproject.festival.gather.dto.GatherDto" />
+        <typeAlias alias="gatherImgDto" type="com.teamproject.festival.gather.dto.GatherImgDto" />
+        <typeAlias alias="gatherSearchDto" type="com.teamproject.festival.gather.dto.GatherSearchDto" />
+    </typeAliases>
+</configuration>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teamproject.festival.notice.mapper.NoticeMapper">
+    <!-- 공지사항 전체 출력 -->
+    <select id="noticeListAll" parameterType="map" resultType="noticeDto">
+        SELECT no_id, reg_id, no_title, no_rgdate, no_count
+        FROM notice
+        ORDER BY no_rgdate DESC
+    </select>
+
+    <!-- 메인페이지 공지사항 출력 -->
+    <select id="noticeMainSelect" parameterType="map" resultType="noticeMainDto">
+        SELECT no_id, no_title, no_count, no_rgdate
+        FROM notice
+        ORDER BY no_rgdate DESC
+        LIMIT #{pageSize} OFFSET #{page}
+    </select>
+
+    <!-- 공지사항 게시물 개수 세기 -->
+    <select id="countNotice" resultType="int">
+        SELECT COUNT(*)
+        FROM notice
+    </select>
+
+    <!-- 공지사항 디테일 -->
+    <select id="noticeDetail" parameterType="String" resultType="noticeDto">
+        SELECT notice.no_id, notice.reg_id, notice.no_title, notice.no_text, notice.no_count, notice.no_rgdate, user.user_id, user.user_name
+        FROM notice JOIN user ON user.user_id = notice.reg_id
+        WHERE no_id = #{noId}
+    </select>
+
+    <!-- 조회수 증가 -->
+    <update id="updateCount" parameterType="String">
+        UPDATE notice
+        SET no_count = no_count + 1
+        WHERE no_id = #{noId}
+    </update>
+
+    <!-- 공지사항 작성 -->
+    <insert id="noticeInsert" parameterType="noticeDto" useGeneratedKeys="true" keyProperty="noId" keyColumn="no_id">
+        CALL insert_no_id_proc(#{regId}, #{noTitle}, #{noText}, #{noFile});
+    </insert>
+
+    <!-- 본인이 맞는지 확인 -->
+    <select id="findUserId" parameterType="String" resultType="String">
+        SELECT notice.reg_id
+        FROM notice JOIN user ON notice.reg_id = user.user_id
+        WHERE no_id = #{noId}
+    </select>
+
+    <!-- 삭제 -->
+    <delete id="noticeDelete" parameterType="String">
+        DELETE FROM notice
+        WHERE no_id = #{noId}
+    </delete>
+
+    <!-- 수정 -->
+    <update id="noticeUpdate" parameterType="noticeDto">
+        UPDATE notice
+        SET no_title = #{noTitle},
+            no_uddate = NOW(),
+            no_text = #{noText},
+            no_file = #{noFile}
+        WHERE no_id = #{noId}
+    </update>
+</mapper>

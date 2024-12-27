@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teamproject.festival.user.mapper.UserMapper">
+
+    <!--  회원가입  -->
+    <insert id="insertUser" parameterType="userDto" useGeneratedKeys="true" keyProperty="userId" keyColumn="userId">
+        INSERT INTO user(user_id, password, user_name, user_email, user_gender, user_address, user_role)
+        VALUES(#{userId}, #{password}, #{userName}, #{userEmail}, #{userGender}, #{userAddress}, #{userRole})
+    </insert>
+
+    <!--  id 중복검사  -->
+    <select id="overlapId" resultType="userDto" parameterType="String">
+        SELECT user_id, user_email
+        FROM user
+        WHERE user_id = #{userId}
+    </select>
+
+    <!--  이메일 중복검사  -->
+    <select id="overlapEmail" resultType="userDto" parameterType="String">
+        SELECT user_id, user_email
+        FROM user
+        WHERE user_email = #{userEmail}
+    </select>
+
+    <!--  로그인 처리  -->
+    <select id="loginUser" resultType="userDto" parameterType="String">
+        SELECT user_id, password, user_name, user_email, user_role
+        FROM user
+        WHERE user_id = #{userId}
+    </select>
+
+    <!--  아이디 찾기  -->
+    <select id="findUserId" resultType="String">
+        SELECT user_id
+        FROM user
+        WHERE user_id = #{userId}
+    </select>
+
+</mapper>

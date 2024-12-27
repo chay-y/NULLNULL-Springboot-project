@@ -1,0 +1,263 @@
+@charset "utf-8";
+
+*{margin: 0;padding: 0;}
+body{
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+    color: rgb(20, 20, 20);
+    background-image:url('../img/background_img.png');
+    background-size: cover;
+  }
+ul, ol{list-style: none;}
+img{vertical-align: top; border: 0;}
+a{text-decoration: none; color: rgb(20, 20, 20);}
+
+/* FestivalList 시작*/
+.wrap{
+    width: 100%;
+    min-height: 1200px;
+    margin: 0 auto;
+}
+
+.main {
+    height: 50px;
+    background-color: bisque;
+}
+
+.info {
+    background-color: aquamarine;
+    height: 120px;
+    margin-top: 30px;
+}
+
+.infoIn {
+    /* background-color: blueviolet; */
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    text-align: center;
+}
+
+.search {
+    font-size: 20px;
+    /* border:1px solid black; */
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+
+.icon {
+    margin-top: 20px;
+}
+
+.icon ul {
+    display: flex;
+    justify-content: space-between;
+}
+
+.icon li {
+    width: 250px;
+    border:1px solid black;
+    font-size: 18px;
+    padding: 15px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.mainSlide {
+    margin-top: 40px;
+    margin-bottom: 50px;
+    height: 350px;
+    /* background-color: antiquewhite; */
+    border: 1px solid black;
+    position: relative;
+    overflow: hidden;
+}
+
+.msImg {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: -960px;
+}
+
+.msBtnL {
+    position: absolute;
+    top: 150px;
+    left: 50%;
+    margin-left: -600px;
+}
+
+.msBtnR {
+    position: absolute;
+    top: 150px;
+    right: 50%;
+    margin-right: -600px;
+}
+
+.fl li{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 75px;
+    padding-bottom: 75px;
+    margin-bottom: 30px;
+    border: solid 1px black;
+}
+
+/* FestivalList 끝 */
+/* FestivalDetail 시작 */
+
+.Detail_warp{
+    width: 1000px;
+    margin: 0 auto;
+    margin-top: 50px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.Detail_warp section{
+    margin: 50px 100px;
+}
+
+.festivalDetail h1{
+    padding: 100px 0;
+    font-size: 45px;
+    line-height: 45px;
+    font-weight: bold;
+}
+
+.festivalDetail > p{
+    width: 70px;
+    height: 30px;
+    border: 0px;
+    font-size: 18px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: plum;
+    color: #fff;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);;
+    margin-bottom: 30px;
+}
+
+.festivalDetail_main{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 150px;
+}
+
+.festivalDetail_main img{
+    width: 350px;
+    height: 500px;
+    background-color: blue;
+}
+
+.festivalDetail_text > p{
+    font-size: 18px;
+    margin-bottom: 50px;
+}
+
+.festivalDetail_text  .home{
+    background-color: #fff;
+    display: inline-block;
+    width: 160px;
+    height: 23px;
+    font-size: 15px;
+    line-height: 23px;
+    text-align: center;
+    border: 1px solid lightgray;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);;
+    border-radius: 10px;
+    padding: 5px;
+}
+/* festivalDetail_main_end */
+
+.food h2{
+    font-size: 23px;
+    line-height: 23px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.food ul{
+    display: flex;
+    justify-content: space-between;
+}
+
+.food ul li{
+    width: 200px;
+    height: 180px;
+}
+
+.sec_text{
+    border: 1px solid lightgray;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);;
+    border-radius: 10px;
+    padding: 10px 20px;
+    position: relative;
+    text-align: center;
+}
+
+.sec_text dl{
+    padding-bottom: 40px;
+}
+
+.sec_text dl dt{ 
+    padding-bottom: 20px;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.sec_text dl dd{
+    font-size: 13px;
+}
+
+.sec_text .Read_more a{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 14px;
+    padding: 5px 5px;
+}
+/* food_end */
+
+.way h2{
+    font-weight: 500;
+    padding-bottom: 20px;
+}
+
+.way img{
+    width: 100%;
+    height: 400px;
+    border: 1px solid #000;
+    display: inline-block;
+    overflow: hidden;
+}
+/* way_end */
+
+.review{
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.review .review_main{
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.review_main > h2{
+    font-weight: 530;
+}
+
+.review_main > p a{
+    display: inline-block;
+    border: 1px solid plum;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: plum;
+    color: #fff;
+}
+
+/* FestivalDetail 끝 */

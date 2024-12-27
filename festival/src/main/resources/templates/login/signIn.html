@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<th:block layout:fragment="css">
+    <style>
+        @charset "utf-8";
+
+        *{margin: 0;padding: 0;}
+        body {
+            font-family: "Noto Sans KR", sans-serif;
+            font-size: 13px;
+            line-height: 20px;
+            color: rgb(20, 20, 20);
+            background-image: linear-gradient(to left,rgba(199, 187, 255, 0.5),  rgba(255, 193, 203, 0.8), rgba(255, 193, 203, 0.8)40%, rgb(205, 227, 255, 0.4) 70%, rgb(205, 227, 255, 0.8) 100%);
+            background-size: cover;
+          }
+        ul, ol{list-style: none;}
+        img{vertical-align: top; border: 0;}
+        a{text-decoration: none; color: rgb(20, 20, 20);}
+
+        .container {
+            position: relative;
+            width: 500px;
+            height: 640px;
+            text-align: center;
+            margin: 0 auto;
+            margin-top: 100px;
+            padding-top: 40px;
+            background-color: rgb(255, 255, 255);
+            border-radius: 10px;
+            box-shadow : 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        }
+
+        .email {
+            width: 150px;
+            height: 40px;
+            outline: none;
+            padding: 0 10px;
+            border: 0;
+            border-radius: 5px;
+            margin: 5px 0;
+            margin-right: 5px;
+            font-size: 14px;
+            border-radius: 10px;
+            box-shadow : 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        }
+
+        .test {
+            width: 200px;
+            height: 40px;
+            outline: none;
+            padding: 0 10px;
+            border: 0;
+            border-radius: 5px;
+            margin: 5px 0;
+            font-size: 14px;
+            border-radius: 10px;
+            box-shadow : 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        }
+
+        #userGender{
+            margin: 5px 10px;
+        }
+
+        select {
+            width: 150px;
+            height: 40px;
+            font-size: 15px;
+            border: 0;
+            outline: none;
+            padding: 0 10px;
+            margin-left: 5px;
+            border-radius: 10px;
+            box-shadow : 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        }
+
+        .btn{
+            font-size: 14px;
+            border: 0;
+            margin-bottom: 20px;
+            padding: 10px 30px;
+            border-radius: 10px;
+            box-shadow : 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+            background-color: white;
+        }
+
+        .btn:hover{
+            background-color: rgb(245, 194, 255);
+            transition: 0.6s;
+            color: rgb(142,32,149);
+        }
+    </style>
+</th:block>
+<th:block layout:fragment="script">
+    <script th:value="javascript">
+        $(document).ready(function() {
+
+            let errorMessage= /*[[${errorMessage}]]*/ "";
+            if (errorMessage != null) {
+                alert(errorMessage);
+            }
+        });
+    </script>
+</th:block>
+<div layout:fragment="content">
+    <div class="container">
+        <h1>회원가입</h1> <br>
+
+        <form action="/users/new" role="form" method="post" th:object="${userJoinForm}">
+            <legend><label th:for="userId"><span>아이디</span></label></legend>
+            <input type="text" th:field="*{userId}" class="test" id="userId">
+            <p th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}" class="fieldError">Incorrect data</p> <br><br>
+
+            <legend><label th:for="password"><span>비밀번호</span></label></legend>
+            <input type="password" th:field="*{password}" class="test" id="userPw1">
+            <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect data</p> <br><br>
+
+            <legend><label th:for="userName"><span>이름</span></label></legend>
+            <input type="text" th:field="*{userName}" class="test" id="userName">
+            <p th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" class="fieldError">Incorrect data</p> <br><br>
+
+            <legend><label><span>성별</span></label></legend>
+            <label><input type="radio" th:field="*{userGender}" value="man"> 남성</label>
+            <label><input type="radio" th:field="*{userGender}" value="woman"> 여성</label> <br><br>
+
+            <legend><label th:for="email">이메일</label></legend>
+            <input type="text" th:field="*{userEmail}" class="email" id="email">
+            <p th:if="${#fields.hasErrors('userEmail')}" th:errors="*{userEmail}" class="fieldError">Incorrect data</p>
+
+            <ul>
+                <button type="submit" class="btn">가입하기</button>
+            </ul>
+        </form>
+    </div>
+</div>
+</html>

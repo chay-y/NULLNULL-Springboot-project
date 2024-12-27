@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<div layout:fragment="content">
+    <div class="warp">
+        <div class="container">
+
+            <div class="main1">
+
+                <div class="l_move"><img src="../img/a_left.png" alt="l_moveBtn"></div>
+                <div class="r_move"><img src="../img/a_right.png" alt="r_moveBtn"></div>
+
+                <div class="mainImg">
+                    <div class="mainImgList" >
+                        <div class="ImgBn" th:each="festival : ${festival}"  th:object="${festivalMainDto}">
+                            <a th:href="'/festival/detail/' + ${festival.ftId}" ><img class="ImgBnIn" th:src="${festival.ftImg}" alt="First slide"></a>
+                        </div>
+                    </div>
+                </div> <!-- mainImg -->
+                <script>
+                    const prev = document.querySelector('.l_move');
+                    const next = document.querySelector('.r_move');
+                    const slideBox = document.querySelector('.mainImgList')
+                    const slide = document.querySelectorAll('.ImgBn img')
+                    const slideLength = slide.length
+                    let currentIndex = 0;
+                    let maxIndex = 5;
+                    let minIndex = 0;
+
+                    let loopInterval = setInterval(() => {
+                        nextMove();
+                    }, 3000);
+
+                    const moveSlide = function(num){
+                        slideBox.style.transform = `translateX(${-num * 1200}px)`;
+                        currentIndex = num;
+                    }
+
+                    prev.addEventListener('click', ()=>{
+                        if(currentIndex !== minIndex){
+                            moveSlide(currentIndex -1)
+                        } else if (currentIndex == minIndex) {
+                            moveSlide(currentIndex = maxIndex)
+                        }
+                    })
+
+                    next.addEventListener('click', ()=>{
+                        if(currentIndex != slideLength -1){
+                            moveSlide(currentIndex +1)
+                        } else if(currentIndex == maxIndex) {
+                            moveSlide(currentIndex = 0)
+                        }
+                    })
+                </script>
+            </div> <!-- main1 -->
+
+
+            <div class="main2">
+
+
+                <ul class="menuHiper">
+                    <li>
+                        <a href="/notices">
+                            <p class="menuImg"><img src="../../img/notice.png" alt=""></p>
+                            <p class="menuName">공지사항</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/festival/festivalList">
+                            <p class="menuImg"><img src="../../img/search.png" alt=""></p>
+                            <p class="menuName">축제찾기</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/gather/gatherList">
+                            <p class="menuImg"><img src="../../img/gather.png" alt=""></p>
+                            <p class="menuName">같이가요</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/users/new">
+                            <p class="menuImg"><img src="../../img/signin.png" alt=""></p>
+                            <p class="menuName">회원가입</p>
+                        </a>
+                    </li>
+                </ul><!-- menuHiper -->
+            </div> <!-- main2 -->
+
+            <div class="mainBn">
+                <div class="mainBns">
+                    <div class="mainBnT">
+                        <h2>축제찾기</h2>
+                        <a th:href="'festival/festivalList'"><span>더보기 ></span></a>
+                    </div>
+                    <div class="mainBnT2">
+                        <h2>공지사항</h2>
+                        <a th:href="'/notices'"><span>더보기 ></span></a>
+                    </div>
+                </div>
+                <div class="mainBnWarp">
+                    <div class="mainBn1">
+                        <form th:action="@{'/festival/'}" th:object="${festival}" role="form" method="get">
+                            <ul>
+                                <li th:each="festival : ${festival}">
+                                    <a th:href="'/festival/detail/' + ${festival.ftId}" >
+                                        <div class="fst1">
+                                            <p class="fstTitle" th:text="${festival.ftName}">title</p>
+                                            <div class="mainBn1T">
+                                                <p class="mBn1Date" th:text="${festival.ftStDate}" >개최일</p>
+                                                <p class="mBn1Date">~</p>
+                                                <p class="mBn1Date" th:text="${festival.ftEdDate}" ></p>
+                                            </div>
+                                        </div>
+                                        <p th:text="${festival.ftText}" class="mBn1Txt">Txt</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </form>
+                    </div><!-- mainBn1 -->
+
+                    <div class="mainBn2">
+                        <form th:action="@{'/notice/' + ${page}}" th:object="${notice}" role="form" method="get" class="mainBn2F">
+                            <table class="mainBn2T">
+                                <thead class="mainBn2th">
+                                <td>no</td>
+                                <td>제목</td>
+                                <td>등록일</td>
+                                <td>조회수</td>
+                                </thead>
+                                <tbody>
+                                <tr th:each="notice : ${notice}">
+                                    <td th:text="${notice.noId}" style="font-size: 12px">공지사항 아이디</td>
+                                    <td th:text="${notice.noTitle}" style="font-size: 12px">제목</td>
+                                    <td th:text="${notice.noRgDate}" style="font-size: 12px"></td>
+                                    <td th:text="${notice.noCount}" style="font-size: 12px"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </form>
+
+                    </div><!-- mainBn2 -->
+                </div>
+            </div><!-- mainBn -->
+        </div>
+    </div>
+</div>
+</html>

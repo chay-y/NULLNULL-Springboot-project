@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<link th:href="@{/css/layout.css}" rel="stylesheet">
+<div th:fragment="header">
+    <nav class="nav">
+        <div class="header">
+            <div class="headerIn">
+                <h1 class="logo">
+                    <a href="/">축제알아보기<img src="" alt=""></a>
+                </h1> <!-- logo -->
+                <div class="topMenu">
+                    <ul>
+                        <li>
+                            <a href="/">홈</a>
+                        </li>
+                        <li><a href="">축제 소식</a></li>
+                        <li><a href="/festival/festivalList">축제찾기</a></li>
+                        <li><a href="">축제달력</a></li>
+                        <li><a href="/gather/gatherList">같이가요축제</a></li>
+                    </ul>
+                </div> <!-- topMenu -->
+                <div class="member">
+                    <ul>
+                        <li sec:authorize="isAnonymous()">
+                            <a href="/users/new">회원가입</a>
+                        </li>
+                        <li sec:authorize="isAnonymous()">
+                            <a href="/users/login">로그인</a>
+                        </li>
+                        <li sec:authorize="isAuthenticated()">
+                            <a href="/users/logout">로그아웃</a>
+                        </li>
+                        <li><a href=""><p>검색</p></a></li>
+                    </ul>
+                </div><!-- member -->
+            </div><!-- headerIn -->
+        </div> <!-- header -->
+    </nav>
+</div>
+<body>
+
+</body>
+</html>

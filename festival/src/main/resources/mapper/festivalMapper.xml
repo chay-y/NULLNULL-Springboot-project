@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teamproject.festival.festival.mapper.FestivalMapper">
+
+    <!-- 메인페이지 축제 리스트 출력 -->
+    <select id="festivalMainList" parameterType="map" resultType="festivalMainDto">
+        SELECT ft_name, ft_stdate, ft_eddate, ft_text, ft_id, ft_img
+        FROM festival
+        WHERE ft_USEYN = 'Y'
+        ORDER BY ft_eddate
+        LIMIT 6
+    </select>
+
+    <!-- 공지사항 전체 출력 -->
+    <select id="festivalListAll" parameterType="map" resultType="festivalListDto">
+        SELECT ft_id, ft_name, ft_text, ft_stdate, ft_eddate, ft_host, ft_phone, ft_img
+        FROM festival
+        WHERE ft_useyn = 'Y'
+        ORDER BY ft_stdate DESC
+        LIMIT 6
+    </select>
+
+    <select id="countFestival" resultType="int">
+        SELECT COUNT(*)
+        FROM festival
+    </select>
+
+    <!-- 페스티벌 리스트 -->
+    <select id="festivalList" parameterType="map" resultType="festivalListDto">
+        SELECT ft_id, ft_name, ft_text, ft_stdate, ft_eddate, ft_host, ft_phone
+        FROM festival
+        WHERE ft_USEYN = 'Y'
+        ORDER BY ft_eddate
+    </select>
+
+    <!-- 페스티벌 디테일 -->
+    <select id="festivalDetail" resultType="festivalDetailDto">
+        SELECT ft_id, ft_name, ft_stdate, ft_eddate, ft_text, ft_host, ft_phone, ft_address, ft_img, ft_latitude, ft_longtitude
+        FROM festival
+        WHERE ft_id=#{ftId}
+    </select>
+
+    <!-- 페스티벌 리뷰 -->
+    <insert id="festivalReview" parameterType="festivalReviewDto">
+        INSERT INTO festivalreview(ft_id, user_id, fr_text, fr_rgdate, fr_rate)
+        VALUES (#{ftId}, #{userId}, #{frText}, #{frRgdate}, #{frRate})
+    </insert>
+
+
+    <!--연도월일별, 지역, 키워드 검색-->
+    <sql id="festivalSearchConditions">
+        <if test="festivalSearchDto.searchftStdate != null and festivalSearchDto.searchftStdate != ''">
+            AND STR_TO_DATE(#{festivalSearchDto.searchftStdate},'%Y-%m-%d') BETWEEN ft_stdate AND ft_eddate
+        </if>
+        <if test="festivalSearchDto.searchftAddress != null and festivalSearchDto.searchftAddress != ''">
+            AND festival.ft_address LIKE CONCAT('%', #{festivalSearchDto.searchftAddress}, '%')
+        </if>
+        <if test="festivalSearchDto.searchftName != null and festivalSearchDto.searchftName != ''">
+            AND festival.ft_name LIKE CONCAT('%', #{festivalSearchDto.searchftName}, '%')
+        </if>
+    </sql>
+
+
+    <!--  검색량 계산  -->
+    <select id="festivalSearchCount" resultType="Integer">
+        select count(*)
+        from festival
+        <where>
+            <include refid="festivalSearchConditions" />
+        </where>
+    </select>
+
+    <!-- 전체 목록(페이징 처리)-->
+    <select id="festivalListPage" parameterType="map" resultType="festivalListDto">
+        SELECT ft_id, ft_name, ft_text, ft_address, ft_stdate, ft_eddate, ft_host, ft_phone, ft_img
+        FROM festival
+        WHERE ft_useyn = 'Y'
+            <include refid="festivalSearchConditions" />
+        ORDER BY ft_eddate
+        LIMIT #{pageSize} OFFSET #{page}
+    </select>
+
+</mapper>

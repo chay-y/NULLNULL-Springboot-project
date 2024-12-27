@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teamproject.festival.gather.mapper.GatherMapper">
+
+    <!-- 전체 목록 조회 -->
+    <select id="gatherListAll" resultType="gatherDto">
+        SELECT gather_id, gt_title, gt_rgDate, prefer_gender, prefer_age, gt_img, gt_count, user_id, gt_mtDate, ppNum, gt_text
+        FROM gather
+    </select>
+
+    <!-- 동행 디테일 -->
+    <select id="gatherSelect" resultType="gatherDto">
+        SELECT gt_title, gt_RgDate, gt_count, user_id, gt_text, ppNum, prefer_gender, prefer_age, gt_mtDate
+        FROM gather
+        WHERE gather_id = #{gather_id}
+    </select>
+
+    <!-- 조회수 -->
+    <update id="gatherGtCount" parameterType="String">
+        UPDATE gather
+        SET gt_count = gt_count + 1
+        WHERE gather_id = #{gatherId}
+    </update>
+
+    <!-- 동행 리스트 추가 -->
+    <insert id="gatherInsert" parameterType="gatherDto" useGeneratedKeys="true" keyProperty="gatherId" keyColumn="gather_id">
+        call insert_gather_id_proc(#{userId}, #{gtTitle}, #{gtText}, #{gtMtDate}, #{ppNum}, #{preferGender}, #{preferAge}, #{gtUseYn}, #{ftId});
+    </insert>
+
+    <select id="countGather" resultType="int">
+        SELECT COUNT(*)
+        FROM gather
+    </select>
+
+    <!-- 수정 -->
+    <update id="gatherUpdate" parameterType="gatherDto">
+        UPDATE gather
+        SET gt_title = #{gtTitle}, gt_text = #{gtText}, ppnum = #{ppNum}, gt_mtDate = #{gtMtDate},
+            prefer_gender = #{preferGender}, prefer_age = #{preferAge}
+        WHERE gather_id = #{gatherId}
+    </update>
+
+    <!-- 삭제 -->
+    <delete id="gatherDelete" parameterType="String">
+        DELETE FROM gather
+        WHERE gather_id = #{gatherId}
+    </delete>
+
+    <!-- 동행 찾기 -->
+    <sql id="gatherSearch">
+        gt_useyn = 'Y'
+        <!-- 제목 -->
+        <if test="gatherSearchDto.gtTitle != null and gatherSearchDto.gtTitle != '' ">
+            AND (gather.gt_title LIKE CONCAT('%', #{gatherSearchDto.gtTitle}, '%'))
+        </if>
+
+        <!-- 날짜 -->
+        <if test="gatherSearchDto.gtMtdate != null and gatherSearchDto.gtMtdate != '' " >
+            <!--AND gt_mtdate == DATE_FORMAT(#{gatherSearchDto.gtMtdate},'%Y-%m-%d)-->
+            AND gt_mtdate = STR_TO_DATE(#{gatherSearchDto.gtMtdate}, '%Y-%m-%d')
+        </if>
+
+        <!-- 선호 성별 -->
+        <if test="gatherSearchDto.preferGender != null and gatherSearchDto.preferGender.size() > 0">
+            AND (
+            <foreach collection="gatherSearchDto.preferGender" item="preferGender" separator=" OR ">
+                gather.prefer_gender LIKE CONCAT('%', #{preferGender}, '%')
+            </foreach>
+            )
+        </if>
+
+        <!-- 남자 -->
+        <!--<if test="gatherSearchDto.preferGender != null and gatherSearchDto.preferGender != '' ">
+            <if test="gatherSearchDto.preferGender.equals('남자')">
+                &lt;!&ndash;AND prefer_gender = #{gatherSearchDto.preferGender}&ndash;&gt;
+                AND (gather.prefer_gender LIKE CONCAT('%', #{gatherSearchDto.preferGender}, '%'))
+            </if>
+            &lt;!&ndash; 여자 &ndash;&gt;
+            <if test="gatherSearchDto.preferGender.equals('여자')">
+                &lt;!&ndash;AND prefer_gender = #{gatherSearchDto.preferGender}&ndash;&gt;
+                AND (gather.prefer_gender LIKE CONCAT('%', #{gatherSearchDto.preferGender}, '%'))
+            </if>
+            &lt;!&ndash; 상관없음&ndash;&gt;
+            <if test="gatherSearchDto.preferGender.equals('상관없음')">
+                &lt;!&ndash;AND prefer_gender = #{gatherSearchDto.preferGender}&ndash;&gt;
+                AND (gather.prefer_gender LIKE CONCAT('%', #{gatherSearchDto.preferGender}, '%'))
+            </if>
+        </if>-->
+
+
+        <!-- 선호 연령 -->
+
+        <if test="gatherSearchDto.preferAge != null and gatherSearchDto.preferAge.size() > 0">
+            AND (
+            <foreach collection="gatherSearchDto.preferAge" item="preferAge" separator=" OR ">
+                gather.prefer_age LIKE CONCAT('%', #{preferAge}, '%')
+            </foreach>
+            )
+        </if>
+    </sql>
+
+
+    <!--  검색량 계산  -->
+    <select id="gatherSearchCount" resultType="Integer">
+        select count(*)
+        from gather
+        <where>
+            <include refid="gatherSearch" />
+        </where>
+    </select>
+
+    <!-- 전체 목록(페이징 처리) -->
+    <select id="gatherListPage" parameterType="map" resultType="gatherSearchDto">
+        SELECT gather_id, gt_title, gt_rgDate, prefer_gender, prefer_age, gt_img, gt_count, user_id, gt_mtdate
+        FROM gather
+        <where>
+            <include refid="gatherSearch" />
+        </where>
+        LIMIT #{pageSize} OFFSET #{page}
+    </select>
+
+</mapper>

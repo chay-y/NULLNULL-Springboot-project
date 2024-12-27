@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<th:block layout:fragment="css">
+    <style>
+        @charset "utf-8";
+
+        *{margin: 0;padding: 0;}
+        body{
+            font-family: "Noto Sans KR", sans-serif;
+            font-size: 13px;
+            line-height: 20px;
+            color: rgb(20, 20, 20);
+            background-image: linear-gradient(to left,rgba(199, 187, 255, 0.5),  rgba(255, 193, 203, 0.8), rgba(255, 193, 203, 0.8)40%, rgb(205, 227, 255, 0.4) 70%, rgb(205, 227, 255, 0.8) 100%);
+            background-size: cover;
+            table-layout: fixed;
+          }
+        ul, ol{list-style: none;}
+        img{vertical-align: top; border: 0;}
+        a{text-decoration: none; color: rgb(20, 20, 20);}
+
+        .wrap{
+            width: 1000px;
+            min-height: 1200px;
+            margin: 0 auto;
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: rgb(255, 255, 255,0.5);
+        }
+
+        .noticeMain{
+            width: 1000px;
+            margin-bottom: 20px;
+        }
+
+        .noticeMain .noticeTitle{
+            margin-top: 15px;
+            position: relative;
+            z-index: 1;
+            padding-left: 15px;
+            font-size: 25px;
+            text-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);;
+        }
+
+        .noticeMain .TitleBackground{
+            line-height: 55px;
+            position: relative;
+            background-image: linear-gradient(to right, rgb(255, 255, 255),rgb(255, 255, 255), rgb(255, 255, 255,0));
+            box-shadow : 0 3px 6px rgba(0,0,0,0.05), 0 3px 6px rgba(0,0,0,0);
+            border-radius: 10px;
+            width: 1000px;
+            height: 15px;
+            top: -8px;
+            z-index: 0;
+            margin-bottom: 30px;
+        }
+
+
+        .noticetable{
+            table-layout: fixed;
+            text-align: center;
+            padding: 15px;
+            width: 900px;
+            margin: 0 auto;
+            height: 680px;
+            border-radius: 10px;
+            margin-bottom: 50px;
+            border: 0;
+            background-color: rgb(255, 255, 255,0.8);
+            box-shadow : 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        }
+
+
+        .noticetable thead tr td{
+            font-size: 15px;
+            height: 40px;
+            padding: 5px 10px;
+            border: 0.1px solid rgb(226, 226, 226);
+            border-radius: 10px;
+            box-shadow : 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        }
+
+        .noticetable thead tr .thT1{
+           width: 500px;
+        }
+
+        .noticetable thead tr .td1{
+            width: 100px;
+        }
+
+        .pageMover {
+            margin-bottom: 20px;
+        }
+
+        .pageMover ul{
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            width: 200px;
+            border: 0.1px solid rgb(226, 226, 226);
+            background-color: rgb(255, 255, 255,0.8);
+            border-radius: 10px;
+            box-shadow : 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        }
+
+        .pageMover ul li{
+            margin: 5px;
+        }
+
+        .search{
+            display: flex;
+            justify-content: center;
+        }
+
+        select{
+            width: auto;
+            font-weight: bold;
+            text-align: center;
+            font-size: 15px;
+            padding: 10.5px 5px;
+            margin: 10px;
+            border: 0.1px solid rgb(226, 226, 226);
+            border-radius: 10px;
+            background-color: rgb(255, 255, 255);
+            box-shadow : 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        }
+
+        input{
+            width: 270px;
+            padding: 10.5px 5px;
+            margin: 10px;
+            border: 0.1px solid rgb(226, 226, 226);
+            border-radius: 10px;
+            background-color: rgb(255, 255, 255);
+            box-shadow : 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        }
+
+        input::placeholder {
+            font-size: 15px;
+            line-height: 20px;
+            color: rgb(161, 161, 161);
+            text-align: center;
+        }
+
+
+        .filterG2 div{
+            margin-bottom: 5px;
+        }
+
+        button[type=submit]{
+            margin: 10px;
+            width: 80px;
+            padding: 10px 0;
+            font-weight: bold;
+            text-align: center;
+            border: 0.1px solid rgb(226, 226, 226);
+            border-radius: 10px;
+            background-color: rgb(255, 255, 255);
+            box-shadow : 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        }
+
+        button[type=submit]:hover{
+            background-color: rgb(245, 194, 255);
+            transition: 0.6s;
+            color: rgb(142,32,149);
+            border: 0.1px solid rgb(245, 194, 255);
+        }
+
+        button[type=submit]:active{
+            background-color: rgb(215, 167, 224);
+            transition: 0.3s;
+        }
+
+        .writeButton[type=submit]{
+            width: 100px;
+            padding: 11px 0;
+            font-weight: bold;
+            text-align: center;
+            font-size: 15px;
+            margin: 10px;
+            border: 0.1px solid rgb(226, 226, 226);
+            border-radius: 10px;
+            background-color: rgb(255, 255, 255);
+            box-shadow : 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        }
+
+        .writeButton[type=submit]:hover{
+            background-color: rgb(245, 194, 255);
+            transition: 0.6s;
+            color: rgb(142,32,149);
+            border: 0.1px solid rgb(245, 194, 255);
+        }
+
+        .writeButton[type=submit]:active{
+            background-color: rgb(215, 167, 224);
+            transition: 0.3s;
+        }
+    </style>
+</th:block>
+
+<body>
+<div class="wrap" layout:fragment="content">
+    <div class="noticeMain">
+        <div class="noticeTitle">공지사항</div>
+        <div class="TitleBackground"></div>
+        <form th:action="@{'/notices/' + ${page}}" th:object="${notices}" role="form" method="get">
+            <table class="noticetable">
+                <thead>
+                <tr>
+                    <td>no</td>
+                    <td class="thT1">제목</td>
+                    <td class="td1">등록일</td>
+                    <td class="td1">조회수</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="notice : ${notices}">
+                    <td th:text="${notice.noId}"></td>
+                    <td class="thT2">
+                        <a th:href="'/notice/' + ${notice.noId}" th:text="${notice.noTitle}"></a>
+                    </td>
+                    <td th:text="${notice.noRgDate}"></td>
+                    <!--<td>등록자</td>-->
+                    <td th:text="${notice.noCount}"></td>
+                </tr>
+
+                </tbody>
+            </table>
+        </form>
+        <div class="writeButton">
+            <a th:href="'/notice/write'" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">글 작성</a>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<meta charset="UTF-8">
+
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+
+        $(document).ready(function() {
+            $("#searchBtn").on("click", function(e) {
+                e.preventDefault();
+                page(1);
+            })
+        });
+
+        function page(page){
+            let searchftStdate=$("#searchftStdate").val();
+            let searchftAddress=$("#searchftAddress").val();
+            let searchftName=$("#searchftName").val();
+
+            location.href="/festival/festivalList/"+page+
+                           "?searchftStdate=" + searchftStdate +
+                           "&searchftAddress=" + searchftAddress +
+                           "&searchftName=" + searchftName;
+        }
+    </script>
+</th:block>
+
+<th:block layout:fragment="css">
+    <style>
+        @charset "utf-8";
+
+        *{margin: 0;padding: 0;}
+        body{
+            font-family: "Noto Sans KR", sans-serif;
+            font-size: 13px;
+            line-height: 20px;
+            color: rgb(20, 20, 20);
+            background-image: linear-gradient(to left,rgba(199, 187, 255, 0.5),  rgba(255, 193, 203, 0.8), rgba(255, 193, 203, 0.8)40%, rgb(205, 227, 255, 0.4) 70%, rgb(205, 227, 255, 0.8) 100%);
+            background-size: cover;
+          }
+        ul, ol{list-style: none;}
+        img{vertical-align: top; border: 0;}
+        a{text-decoration: none; color: rgb(20, 20, 20);}
+
+        .wrap{
+            width: 100%;
+            min-height: 1200px;
+            margin: 0 auto;
+        }
+
+        .inT{
+            margin-bottom: 20px;
+        }
+
+        .infoDis{
+            font-style: italic;
+            font-weight: bold;
+            margin: 0px 0px 5px 10px;
+        }
+
+        .infoMain{
+            width: 1000px;
+            margin: 0 auto;
+            margin-bottom: 20px;
+            margin-top: 50px;
+        }
+
+        .infoMain .infoTitle{
+            position: relative;
+            z-index: 1;
+            padding-left: 15px;
+            font-size: 25px;
+            text-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        }
+
+        .infoMain .infoBackground{
+            position: relative;
+            background-image: linear-gradient(to right, rgb(255, 255, 255),rgb(255, 255, 255), rgb(255, 255, 255,0));
+            box-shadow : 0 3px 6px rgba(0,0,0,0.05), 0 3px 6px rgba(0,0,0,0);
+            border-radius: 10px;
+            width: 1000px;
+            height: 15px;
+            top: -8px;
+            z-index: 0;
+        }
+
+        .info {
+            height: 68px;
+            border-radius: 10px;
+            margin-bottom: 50px;
+            border: 0;
+            background-color: rgb(255, 255, 255,0.2);
+            box-shadow : 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        }
+
+        .infoG1{
+            display: flex;
+            justify-content: center;
+        }
+
+        .infoG1 input{
+            width: 240px;
+            height: 32px;
+            padding: 5px 10px;
+            margin: 10px;
+            border: 0.1px solid rgb(226, 226, 226);
+            border-radius: 10px;
+            background-color: rgb(255, 255, 255);
+            box-shadow : 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        }
+
+        input::placeholder {
+            color: rgb(161, 161, 161);
+            font-size: 15px;
+            line-height: 20px;
+            color: rgb(20, 20, 20);
+            text-align: center;
+            font-weight: bold;
+        }
+
+        input[type=date]{
+            color: rgb(161, 161, 161);
+            font-size: 15px;
+            line-height: 20px;
+            color: rgb(20, 20, 20);
+            text-align: center;
+            font-family: "Noto Sans KR", sans-serif;
+            font-weight: bold;
+        }
+
+        button[type=submit]{
+            width: 100px;
+            padding: 11px 0;
+            font-weight: bold;
+            text-align: center;
+            font-size: 15px;
+            margin: 10px;
+            border: 0.1px solid rgb(226, 226, 226);
+            border-radius: 10px;
+            background-color: rgb(255, 255, 255);
+            box-shadow : 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        }
+
+        button[type=submit]:hover{
+            background-color: rgb(245, 194, 255);
+            transition: 0.6s;
+            color: rgb(142,32,149);
+            border: 0.1px solid rgb(245, 194, 255);
+        }
+
+        button[type=submit]:active{
+            background-color: rgb(215, 167, 224);
+            transition: 0.3s;
+        }
+
+        /* 검색 end */
+
+        .mainBn{
+            position: relative;
+            margin: 0 auto;
+            height: 280px;
+            width: 1000px;
+            overflow: hidden;
+            margin-bottom: 50px;
+            background-color: rgb(241, 232, 255);
+            border-radius: 50px;
+            box-shadow : 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        }
+
+        .mainBn .l_move{
+            z-index: 1;
+            position: absolute;
+            top : 50%;
+            left: 50%;
+            margin-left: -480px;
+            margin-top: -26px;
+            cursor: pointer;
+        }
+        .mainBn .r_move{
+            z-index: 1;
+            position: absolute;
+            top : 50%;
+            right: 50%;
+            margin-right: -480px;
+            margin-top: -26px;
+            cursor: pointer;
+        }
+
+        .mainImg{
+            position: absolute;
+            top: -200px;
+            left: 0;
+            overflow: hidden;
+        }
+
+        .mainImgList{
+            display: flex;
+            transition: 0.5s;
+        }
+
+        .ImgBn img{
+            width: 1000px;
+        }
+
+        /* 배너 end */
+
+        .infoList{
+            width: 1000px;
+            align-items: center;
+            margin: 0 auto;
+            color: white;
+        }
+
+        .infoList ul li {
+            width: 1000px;
+            height: 225px;
+            border: 0;
+            margin: 25px 0;
+            border-radius: 10px;
+            box-shadow : 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        }
+
+        .infoMain2{
+            width: 940px;
+            height: 185px;
+            position: relative;
+            padding: 20px 30px;
+            border-radius: 10px;
+            overflow: hidden;
+            color: white;
+        }
+
+        .infoMain2 .infoT{
+            position: absolute;
+            font-size: 30px;
+            line-height: 30px;
+            z-index: 2;
+        }
+
+        .infos1 span{
+            position: absolute;
+            display: flex;
+            z-index: 2;
+        }
+
+        .infos1_1{
+            top: 60px;
+            left: 30px;
+        }
+
+        .infos1_2{
+            top: 189px;
+            left: 30px;
+            font-size: 20px;
+            line-height: 18px;
+        }
+
+        .infos1_2_1{
+            width: 140px;
+            left: 100px;
+        }
+
+
+        .infos1_2_2{
+            left: 220px;
+        }
+
+        .infos1_2_3{
+            width: 140px;
+            left: 250px;
+        }
+
+        .infos1_3{
+            top: 190px;
+            left: 380px;
+            font-size: 16px;
+        }
+
+
+        .inimg{
+            width: 1000px;
+            height: 235px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        .inimg1{
+            width: 1000px;
+            height: 435px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: linear-gradient(to top, rgba(20, 20, 20, 1) 10%,  rgba(20, 20, 20, 0) 50%, rgba(20, 20, 20, 1) 90% );
+            z-index: 2;
+        }
+
+        .inimg1:hover{
+            height: 235px;
+            background: linear-gradient(to top, rgba(20, 20, 20, 1) 10%,  rgba(20, 20, 20, 0) 50%, rgba(20, 20, 20, 1) 90% );
+            transition: 1s;
+            z-index: 2;
+        }
+
+        .inimg img{
+            width: 1000px;
+        }
+
+        .pageHandlers ul{
+            width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        .pageHandlers ul li{
+            cursor: pointer;
+            padding: 5px 10px;
+            margin: 10px;
+            border: 0.1px solid rgb(226, 226, 226);
+            border-radius: 10px;
+            background-color: rgb(255, 255, 255);
+            box-shadow : 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        }
+
+        .pageHandlers ul li:hover{
+            background-color: rgb(245, 194, 255);
+            transition: 0.6s;
+            border: 0.1px solid rgb(245, 194, 255);
+        }
+
+        .pageHandlers ul li:active{
+            background-color: rgb(215, 167, 224);
+            transition: 0.3s;
+        }
+    </style>
+</th:block>
+
+<div class="wrap" layout:fragment="content">
+    <!--MainHeader 들어올 공간-->
+    <div class="wrap">
+        <form th:action="@{'/festival/festivalList/'+ ${page}}" th:object="${festival}" role="form" method="get">
+            <div class="infoMain" >
+                <div class="inT">
+                    <p class="infoTitle">축제 검색</p>
+                    <p class="infoBackground"></p>
+                </div>
+                <p class="infoDis">원하는 내용을 검색해보세요!</p>
+                <div class="info" th:object="${festivalSearchDto}">
+                    <ul class="infoG1">
+                        <li><input type="date" th:field="*{searchftStdate}" placeholder="날짜" name="selDate"></li>
+                        <li><input type="text" th:field="*{searchftAddress}" placeholder="지역" name="selWhere"></li>
+                        <li><input type="text" th:field="*{searchftName}" placeholder="축제명" name="selThem"></li>
+                        <li><button id="searchBtn" type="submit">검색</button></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="FestivalMain">
+                <div class="mainBn">
+                    <div class="l_move"><img src="../../img/a_left.png" alt="l_moveBtn"></div>
+                    <div class="r_move"><img src="../../img/a_right.png" alt="r_moveBtn"></div>
+                    <div class="mainImg">
+                        <div class="mainImgList">
+                            <div class="ImgBn" th:each="festival : ${festival}"  th:object="${festivalMainDto}">
+                                <a th:href="'/festival/detail/' + ${festival.ftId}" ><img class="ImgBnIn" th:src="${festival.ftImg}" alt="First slide"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        const prev = document.querySelector('.l_move');
+                        const next = document.querySelector('.r_move');
+                        const slideBox = document.querySelector('.mainImgList')
+                        const slide = document.querySelectorAll('.ImgBn img')
+                        const slideLength = slide.length
+                        let currentIndex = 0;
+                        let maxIndex = 4;
+                        let minIndex = 0;
+
+                        let loopInterval = setInterval(() => {
+                            nextMove();
+                        }, 3000);
+
+                        const moveSlide = function(num){
+                            slideBox.style.transform = `translateX(${-num * 1000}px)`;
+                            currentIndex = num;
+                        }
+
+                        prev.addEventListener('click', ()=>{
+                            if(currentIndex !== minIndex){
+                                moveSlide(currentIndex -1)
+                            } else if (currentIndex == minIndex) {
+                                moveSlide(currentIndex = maxIndex)
+                            }
+                        })
+
+                        next.addEventListener('click', ()=>{
+                            if(currentIndex != slideLength -1){
+                                moveSlide(currentIndex +1)
+                            } else if(currentIndex == maxIndex) {
+                                moveSlide(currentIndex = 0)
+                            }
+                        })
+                    </script>
+                </div>
+
+                <div class="infoList">
+                    <div class="infoListIn">
+                        <!-- 백그라운드로 이미지 깔기 (페이지당 축제 관련 이미지 5개)
+                        해당 이미지 내 상세보기 클릭 시 해당 축제 상세정보로 이동 -->
+
+                        <ul class="infoLists">
+                            <li th:each="festival : ${festival}" >
+                                <a th:href="'/festival/detail/' + ${festival.ftId}">
+                                    <div class="infoMain2">
+                                        <div class="inimg"><img th:src="${festival.ftImg}" ></div>
+                                        <div class="inimg1"></div>
+
+                                        <div class="infoT" th:text="${festival.ftName}">Title</div>
+                                        <div class="infos1">
+                                            <span class="infos1_1" th:text="${festival.ftText}">설명</span>
+                                            <span class="infos1_2">
+                                                개최일 >
+                                                <span class="infos1_2_1" th:text="${festival.ftStdate}">0000-00-00 </span>
+                                                <span class="infos1_2_2"> ~ </span>
+                                                <span class="infos1_2_3" th:text="${festival.ftEddate}"> 0000-00-00</span>
+                                            </span>
+                                        </div>
+                                    </div><!--gatherMain-->
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="pageHandlers" th:with="start=${pageHandler.beginPage}, end=${pageHandler.endPage}">
+                    <ul class="pagination justify-content-center">
+
+                        <li th:if="${not pageHandler.firstPage}"
+                            th:classappend="${pageHandler.firstPage} ? 'disabled' : ''" class="page-item">
+                            <a th:onclick="'javascript:page(' + ${pageHandler.page-1} + ')'" aria-label='Previous'
+                               class="page-link">
+                                <span aria-hidden='true'>Previous</span>
+                            </a>
+                        </li>
+
+                        <li th:each="page: ${#numbers.sequence(start, end)}"
+                            th:classappend="${pageHandler.page eq page} ? 'active' : ''"
+                            class="page-item">
+                            <a th:onclick="'javascript:page(' + ${page} + ')'"
+                               th:inline="text" class="page-link">[[${page}]]</a>
+                        </li>
+
+                        <li th:if="${not pageHandler.lastPage}"
+                            th:classappend="${pageHandler.lastPage} ? 'disabled' : ''"
+                            class="page-item">
+                            <a th:onclick="'javascript:page(' + ${pageHandler.page + 1} + ')'"
+                               aria-label='Next' class="page-link">
+                                <span aria-hidden='true'>Next</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</html>
